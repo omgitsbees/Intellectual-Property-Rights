@@ -101,3 +101,128 @@ pip install -r requirements.txt
 License
 
 This project is licensed under the MIT License.
+
+-----------------------------------------------------------------------------------------------------------------
+
+Trademark Infringement Detection System
+
+This project uses Natural Language Processing (NLP) and machine learning to predict potential trademark infringements based on text similarity. The system processes trademark descriptions, computes similarity scores, trains a classification model, and provides an API for predicting trademark infringement via a Flask web application.
+Features
+
+    Data Preprocessing: Clean and tokenize text, remove stopwords, and prepare data for model training.
+    Similarity Analysis: Use TF-IDF vectorization and cosine similarity to compare text samples.
+    Machine Learning Model: Logistic Regression model to classify trademark infringement based on text similarity.
+    Evaluation and Visualization: Evaluate model accuracy and visualize the distribution of similarity scores.
+    Flask API: Provides an API endpoint to predict trademark infringement based on input text.
+
+Requirements
+
+    Python 3.x
+    Libraries:
+        pandas
+        numpy
+        nltk
+        scikit-learn
+        matplotlib
+        seaborn
+        flask
+        flask_sqlalchemy
+        sqlalchemy
+
+You can install the required libraries using:
+
+bash
+
+pip install -r requirements.txt
+
+Dataset
+
+The dataset (trademarks.csv) contains the following columns:
+
+    text: Description of the trademark
+    infringement: Label indicating whether the trademark is an infringement (1 for infringement, 0 for no infringement)
+
+Project Structure
+
+    Data Preprocessing: The text is converted to lowercase, punctuation is removed, and tokens are generated using NLTK. Stopwords are also removed.
+    TF-IDF and Cosine Similarity: Text is transformed into TF-IDF vectors, and cosine similarity scores are calculated between the texts.
+    Model Training: Logistic Regression is used to train a classifier on the similarity matrix.
+    Evaluation: Model accuracy is calculated, and a histogram of the similarity score distribution is generated.
+    Flask API: Provides an endpoint /predict for predicting infringement based on the text input.
+
+Setup
+
+    Clone the repository:
+
+    bash
+
+git clone https://github.com/yourusername/trademark-infringement-detector.git
+
+Install the required Python packages:
+
+bash
+
+pip install -r requirements.txt
+
+Load your trademarks.csv dataset into the project directory.
+
+Run the Flask app:
+
+bash
+
+    python app.py
+
+    The API will be available at http://127.0.0.1:5000/predict. You can send POST requests to this endpoint with the text data to receive a prediction.
+
+Example API Usage
+
+Send a POST request to the /predict endpoint with a JSON body:
+
+json
+
+{
+  "text": "Example trademark description"
+}
+
+The response will contain a prediction:
+
+json
+
+{
+  "prediction": [1]
+}
+
+Model Evaluation
+
+    Accuracy: The accuracy of the model on the test set is printed during evaluation.
+    Confusion Matrix & Classification Report: Add additional evaluation if needed using confusion_matrix and classification_report from scikit-learn.
+
+Visualization
+
+The distribution of similarity scores is visualized using a histogram:
+
+python
+
+plt.hist(predictions, bins=50)
+plt.xlabel('Similarity Score')
+plt.ylabel('Frequency')
+plt.title('Distribution of Similarity Scores')
+plt.show()
+
+Database Setup
+
+The Flask application uses SQLite to store trademarks. A Trademark model is defined with the following fields:
+
+    id: Unique identifier
+    text: Trademark description
+    infringement: Infringement label (1 or 0)
+
+Run the following command to create the database:
+
+python
+
+db.create_all()
+
+License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
