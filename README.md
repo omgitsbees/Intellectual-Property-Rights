@@ -226,3 +226,97 @@ db.create_all()
 License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
+
+----------------------------------------------------------------------------------------------------------------
+
+Copyright Infringement Detection Tool
+
+This tool detects potential copyright infringement in both text and images by comparing copyrighted data with potentially infringing content. It utilizes techniques such as TF-IDF for text vectorization, cosine similarity for comparing text and image data, and VGG16 for extracting image features.
+Features
+
+    Text Preprocessing: Tokenization and removal of stopwords from the copyrighted and potentially infringing texts.
+    Text Vectorization: Conversion of preprocessed text data into TF-IDF vectors for comparison.
+    Image Feature Extraction: Use of the VGG16 model to extract features from images.
+    Cosine Similarity Calculation: Determines how similar two pieces of text or images are.
+    Detection of Infringement: Text or images with similarity scores above a specified threshold are flagged as potential copyright infringements.
+
+Prerequisites
+
+Before running the tool, ensure you have the following Python libraries installed:
+
+bash
+
+pip install pandas numpy nltk scikit-learn tensorflow pillow opencv-python
+
+Additionally, you need to download the NLTK data for tokenization and stopwords:
+
+bash
+
+import nltk
+nltk.download('punkt')
+nltk.download('stopwords')
+
+File Structure
+
+You need to have two CSV files for text comparison and two CSV files for image comparison:
+
+    copyrighted_texts.csv: Contains copyrighted text data with a column text.
+    potentially_infringing_texts.csv: Contains potentially infringing text data with a column text.
+    copyrighted_images.csv: Contains paths to copyrighted images with a column path.
+    potentially_infringing_images.csv: Contains paths to potentially infringing images with a column path.
+
+How to Run
+
+    Clone the repository and navigate to the project directory.
+    Ensure your CSV files are placed in the same directory.
+    Run the script:
+
+bash
+
+python detect_copyright_infringement.py
+
+How It Works
+
+    Text Comparison:
+        Loads and preprocesses text data (tokenization and removal of stopwords).
+        Converts the text data into TF-IDF vectors.
+        Computes cosine similarity between the copyrighted and potentially infringing text vectors.
+        Flags texts with a similarity score higher than the set threshold (0.5 by default).
+
+    Image Comparison:
+        Loads image paths and processes them using the VGG16 deep learning model to extract features.
+        Computes cosine similarity between the extracted image features.
+        Flags images with a similarity score higher than the set threshold (0.5 by default).
+
+    Infringement Detection:
+        Prints the list of potentially infringing text and image pairs if their similarity exceeds the threshold.
+
+Example Output
+
+bash
+
+[(['copyrighted', 'text'], ['potentially', 'infringing', 'text'])]
+[('path/to/copyrighted_image.jpg', 'path/to/potentially_infringing_image.jpg')]
+
+Customization
+
+    Infringement Threshold: By default, the similarity threshold is set to 0.5. You can adjust this by modifying the infringement_threshold variable.
+
+Dependencies
+
+    Pandas: For handling CSV data.
+    NumPy: For numerical operations.
+    NLTK: For text tokenization and stopword removal.
+    Scikit-learn: For TF-IDF vectorization and cosine similarity calculations.
+    OpenCV: For reading image data (optional but recommended).
+    PIL (Pillow): For image manipulation.
+    TensorFlow (Keras): For extracting image features using the VGG16 model.
+
+License
+
+This project is licensed under the MIT License.
+Acknowledgments
+
+    The VGG16 model used in this tool is a deep learning model trained on the ImageNet dataset and provided by Keras.
+
+Feel free to contribute to this project by submitting pull requests or reporting issues!
